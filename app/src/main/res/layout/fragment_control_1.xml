@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="@dimen/common_container_padding"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提示:绿色为开启, 红色为关闭"
+        />
+        <include layout="@layout/view_boder"></include>
+
+    <CheckBox
+        android:button="@null"
+        android:layout_margin="@dimen/common_container_padding"
+        android:id="@+id/tb_elect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" 电 磁 阀"
+        android:drawableRight="@drawable/selector_light_state"
+
+        android:textStyle="bold" />
+        <include layout="@layout/view_boder"></include>
+
+    <CheckBox
+        android:button="@null"
+        android:id="@+id/tb_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/selector_light_state"
+        android:layout_margin="@dimen/common_container_padding"
+
+        android:text=" 景 观 灯 "
+        android:textStyle="bold" />
+        <include layout="@layout/view_boder"></include>
+
+    <CheckBox
+        android:button="@null"
+        android:id="@+id/tb_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" 过 滤 器 "
+        android:drawableRight="@drawable/selector_light_state"
+        android:layout_margin="@dimen/common_container_padding"
+
+        android:textStyle="bold" />
+        <include layout="@layout/view_boder"></include>
+
+    <CheckBox
+        android:button="@null"
+        android:id="@+id/tb_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" 投 食 器 "
+        android:layout_margin="@dimen/common_container_padding"
+
+        android:drawableRight="@drawable/selector_light_state"
+        android:textStyle="bold" />
+        <include layout="@layout/view_boder"></include>
+
+    </LinearLayout>
+</ScrollView>

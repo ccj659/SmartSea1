@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/common_container_padding"
+
+    >
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/common_container_padding"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="室内环境"
+                android:textSize="@dimen/large_text_size"
+
+                />
+
+            <include layout="@layout/view_boder"></include>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/temp"
+               />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/out_temp"
+                android:text="温度"
+
+                />
+
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/shidu"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/out_humidity"
+                android:text="湿度"
+
+                />
+        </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="@dimen/image_size_80dp"
+                    android:layout_height="@dimen/image_size_80dp"
+                    app:srcCompat="@mipmap/pm25"
+                    />
+
+                <TextView
+                    android:layout_margin="@dimen/small_container_padding"
+                    android:layout_width="@dimen/image_size_80dp"
+                    android:layout_height="@dimen/image_size_80dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/out_pm25"
+                    android:text="pm2.5"
+
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/image_size_80dp"
+                    android:layout_height="@dimen/image_size_80dp"
+                    app:srcCompat="@mipmap/pm10"
+                    />
+
+                <TextView
+                    android:layout_margin="@dimen/small_container_padding"
+                    android:layout_width="@dimen/image_size_80dp"
+                    android:layout_height="@dimen/image_size_80dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/out_pm10"
+                    android:text="pm10"
+
+                    />
+            </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/smoke"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="烟雾"
+                android:id="@+id/out_smoke"
+
+
+                />
+</LinearLayout>
+        </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/common_container_padding"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="室内环境"
+            android:textSize="@dimen/large_text_size"
+
+            />
+
+        <include layout="@layout/view_boder"></include>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/temp"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/in_temp"
+                android:text="温度"
+
+                />
+
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/shidu"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/in_humidity"
+                android:text="湿度"
+
+                />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/pm25"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/in_pm25"
+                android:text="pm2.5"
+
+                />
+
+            <ImageView
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                app:srcCompat="@mipmap/pm10"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/small_container_padding"
+                android:layout_width="@dimen/image_size_80dp"
+                android:layout_height="@dimen/image_size_80dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/in_pm10"
+                android:text="pm10"
+
+                />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>
