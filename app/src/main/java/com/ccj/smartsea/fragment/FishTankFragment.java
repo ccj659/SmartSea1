@@ -15,6 +15,10 @@ import com.ccj.smartsea.adapter.TestAdapter;
 import com.ccj.smartsea.adapter.base.ItemClickListener;
 import com.ccj.smartsea.base.BaseFragment;
 import com.ccj.smartsea.bean.FishTank;
+import com.ccj.smartsea.event.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -113,4 +117,22 @@ public class FishTankFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    // This method will be called when a MessageEvent is posted
+    @Subscribe
+    public void onMessageEvent(MessageEvent event){
+        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -15,6 +15,17 @@ public class FishTank implements Serializable {
     public String temp; //温度
     public String name;
 
+    public FishTank(String id, String depth, String turbidness, String temp, String name) {
+        this.id = id;
+        this.depth = depth;
+        this.turbidness = turbidness;
+        this.temp = temp;
+        this.name = name;
+    }
 
 
+    public FishTank() {
+
+
+    }
 }

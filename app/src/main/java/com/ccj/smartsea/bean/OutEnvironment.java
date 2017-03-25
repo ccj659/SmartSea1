@@ -12,9 +12,21 @@ public class OutEnvironment implements Serializable {
     public String name;
     public String temp; //温度
     public String pm25; //PM2.5
+    public String pm10; //PM2.5
+    public String tempIn; //室温
     public String smoke; //浊度
 
+    public OutEnvironment(String id, String name, String temp, String pm25, String smoke) {
+        this.id = id;
+        this.name = name;
+        this.temp = temp;
+        this.pm25 = pm25;
+        this.smoke = smoke;
+    }
 
 
+    public OutEnvironment() {
 
+
+    }
 }

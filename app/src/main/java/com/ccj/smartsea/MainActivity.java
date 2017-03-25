@@ -2,6 +2,8 @@ package com.ccj.smartsea;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.ccj.smartsea.event.MessageEvent;
 import com.ccj.smartsea.fragment.ControlFragment;
 import com.ccj.smartsea.fragment.EnvironmentFragment;
 import com.ccj.smartsea.fragment.FishTankFragment;
 import com.ccj.smartsea.fragment.PersonFragment;
 import com.ccj.smartsea.utils.AppManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
     private TabHost.OnTabChangeListener tabChangeListener;
     private String currentTab=tabHostTagArray[0];
     private TextView toolbar_title;
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

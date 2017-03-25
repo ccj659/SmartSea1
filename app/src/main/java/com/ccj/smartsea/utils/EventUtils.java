@@ -21,6 +21,17 @@ public class EventUtils {
         }
     }
 
+    public static class ConnectedEvent{
+        private String mMsg;
+        public ConnectedEvent(String msg) {
+            // TODO Auto-generated constructor stub
+            this.mMsg = msg;
+        }
+        public String getMsg(){
+            return mMsg;
+        }
+    }
+
     public static class intEvent{
         private int mMsg;
         public intEvent(int msg) {

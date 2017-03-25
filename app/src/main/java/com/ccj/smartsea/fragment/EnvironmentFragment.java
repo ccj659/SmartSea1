@@ -6,9 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ccj.smartsea.R;
 import com.ccj.smartsea.base.BaseFragment;
+import com.ccj.smartsea.event.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -63,4 +68,25 @@ public class EnvironmentFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    // This method will be called when a MessageEvent is posted
+    @Subscribe
+    public void onMessageEvent(MessageEvent event){
+        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
 }

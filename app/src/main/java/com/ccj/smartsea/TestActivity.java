@@ -2,6 +2,7 @@ package com.ccj.smartsea;
 
 import android.app.Activity;
 import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 
 /**
@@ -27,15 +28,29 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-public class TestActivity extends Activity implements View.OnClickListener,Runnable{
 
+import com.ccj.smartsea.event.MessageEvent;
+import com.ccj.smartsea.utils.EventUtils;
+
+import org.greenrobot.eventbus.EventBus;
+
+public class TestActivity extends Activity implements View.OnClickListener{
+
+        public static String msg;
 
         private Button button;
         private EditText editText;
-        private Socket socket;
-        private PrintWriter pw;
-        private BufferedReader br;
-        private Handler handler;
+        private static Socket socket;
+        private static PrintWriter pw;
+        private static BufferedReader br;
+        private Handler handler=new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+
+            }
+        };
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +65,7 @@ public class TestActivity extends Activity implements View.OnClickListener,Runna
 
         }
 
+
     private void startThreadConected() {
         new Thread(new Runnable() {
             @Override
@@ -59,10 +75,9 @@ public class TestActivity extends Activity implements View.OnClickListener,Runna
         }).start();
     }
 
-    private void socketConect() {
+    public static void socketConect() {
         try {
             socket=new Socket("192.168.2.211",5648);        //连接到tobacco5648.xicp.net的5648端口
-           //tobacco5648.xicp.net是我申请的域名
 
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -83,14 +98,18 @@ public class TestActivity extends Activity implements View.OnClickListener,Runna
                 if(pw!=null&&br!=null){
                     Log.e("socket","pw!=null&&br!=null");
 
-                    new Thread(this).start();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runSocket();
+                        }
+                    }).start();
                 }
 
                 Log.e("socket","local:"+socket.getLocalAddress().getHostAddress()+",port"+ socket.getLocalPort());
 
                 Log.e("socket","accept:"+socket.getInetAddress().getHostAddress()+",port"+ socket.getPort());
                 Log.e("socket","socket connected success");
-
 
 
             } catch (IOException e) {
@@ -133,20 +152,16 @@ public class TestActivity extends Activity implements View.OnClickListener,Runna
 
     }
 
-    public void run() {
+    public static void runSocket() {
         System.out.println("accept:"+socket.getInetAddress().getHostAddress());
         try {
             String str;
 
             while((str=br.readLine())!=null){
                 final String s=str;
-                handler.post(new Runnable(){
-
-                    public void run() {
-                        Toast.makeText(TestActivity.this, s, Toast.LENGTH_SHORT).show();
-                        Log.e("socket","socket recivered mesg--->"+s);
-
-                    }});
+                msg=s;
+                Log.e("socket","socket recivered mesg--->"+s);
+                EventBus.getDefault().post(new EventUtils.StringEvent("Hello everyone!"));
 
             }
         } catch (IOException e) {
@@ -156,42 +171,5 @@ public class TestActivity extends Activity implements View.OnClickListener,Runna
 
     }
 
-
-    public void run1(){
-        System.out.println("accept:"+socket.getInetAddress().getHostAddress());
-        InputStream is=null;
-        OutputStream os=null;
-        BufferedReader br=null;
-        PrintWriter pw=null;
-        try {
-            is=socket.getInputStream();
-            os=socket.getOutputStream();
-            br=new BufferedReader(new InputStreamReader(is));
-            pw=new PrintWriter(os);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            try {
-                socket.close();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            return;
-        }
-        String str;
-        try {
-            int m=0;
-            while((str=br.readLine())!=null){
-                System.out.println(str);
-               /* pw.println(m);
-                pw.flush();
-                m++;*/
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
 }
