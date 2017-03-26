@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class HexTo10Utils {
 
 
-    static ArrayList<String> arrayList = new ArrayList<>();
-    static ArrayList<FishTank> fishTanks = new ArrayList<>();
+    public static ArrayList<String> arrayList;
+    public static ArrayList<FishTank> fishTanks ;
     public static OutEnvironment inEnvironment;
     public static OutEnvironment outEnvironment;
     public static SwitchBtn electSwitchBtn;
@@ -32,9 +32,9 @@ public class HexTo10Utils {
     }
 
 
-    public static void getData(String sdata) {
+    public static void getData(String strInput) {
 
-        String strInput = "0X3A153221000000000000000000000000000000015601341821110000000000000000010123";
+       // String strInput = "1X3A153221111111111111111111111111111111115601341821111111111111111111010123";
         arrayList = new ArrayList<>();
         fishTanks = new ArrayList<>();
 
@@ -50,15 +50,16 @@ public class HexTo10Utils {
 
         }
 //String strInput = "0X3A153221000000000000000000000000000000015601341821110000000000000000010123";
-
+        int index=1;
         for (int i = 0; i < 18; i++) {
             FishTank fishTank = new FishTank();
-            fishTank.id = i + "";
-            fishTank.temp = HexTo10(arrayList.get(i))+"";
-            fishTank.depth = HexTo10(arrayList.get(i + 1))+"";
+            fishTank.id = index + "号鱼缸";
+            fishTank.temp = HexTo10(arrayList.get(i))+"℃";
+            fishTank.depth = HexTo10(arrayList.get(i + 1))+"cm";
             fishTank.turbidness =HexTo10( arrayList.get(i + 2))/10+"";
             fishTanks.add(fishTank);
             i += 2;
+            index++;
             System.out.println(fishTank.id + "---" + fishTank.temp + "--" + fishTank.depth + "--" + fishTank.turbidness);
 
 
@@ -67,23 +68,24 @@ public class HexTo10Utils {
 
         inEnvironment = new OutEnvironment();
         inEnvironment.id = 1 + "";
-        inEnvironment.pm25 = HexTo10(arrayList.get(18))*256 + HexTo10(arrayList.get(19))/10+"";
-        inEnvironment.pm10 = HexTo10(arrayList.get(20))*256 + HexTo10(arrayList.get(21))/10+"";
-        inEnvironment.tempIn =  HexTo10(arrayList.get(22))+"";
-
-        inEnvironment.temp =  HexTo10(arrayList.get(23))+"";
+        inEnvironment.pm25 = (HexTo10(arrayList.get(18))*256 + HexTo10(arrayList.get(19))/10)+"ug/m³";
+        inEnvironment.pm10 = (HexTo10(arrayList.get(20))*256 + HexTo10(arrayList.get(21))/10)+"ug/m³";
+        inEnvironment.temp =  HexTo10(arrayList.get(22))+"℃";
+        inEnvironment.tempIn =  HexTo10(arrayList.get(23))+"%RH";
         inEnvironment.smoke =  HexTo10(arrayList.get(24))+"";
-        System.out.println(inEnvironment.pm25 + "---" + inEnvironment.pm10 + "--" + inEnvironment.temp + "--" + inEnvironment.smoke);
+
+        System.out.println(inEnvironment.pm25 + "---" + inEnvironment.pm10 + "--" + inEnvironment.temp + "--" + inEnvironment.tempIn);
 
         outEnvironment = new OutEnvironment();
         outEnvironment.id = 1 + "";
-        inEnvironment.pm25 = HexTo10(arrayList.get(25))*256 + HexTo10(arrayList.get(26))/10+"";
-        inEnvironment.pm10 = HexTo10(arrayList.get(27))*256 + HexTo10(arrayList.get(28))/10+"";
+
+        outEnvironment.pm25 = (HexTo10(arrayList.get(25))*256 + HexTo10(arrayList.get(26))/10)+"ug/m³";
+        outEnvironment.pm10 = (HexTo10(arrayList.get(27))*256 + HexTo10(arrayList.get(28))/10)+"ug/m³";
 
 
-        outEnvironment.temp = HexTo10(arrayList.get(29))+"";
-        outEnvironment.smoke = HexTo10(arrayList.get(30))+"";
-        System.out.println(outEnvironment.pm25 + "---" + outEnvironment.pm10 + "--" + outEnvironment.temp + "--" + outEnvironment.smoke);
+        outEnvironment.temp = HexTo10(arrayList.get(29))+"℃";
+        outEnvironment.tempIn = HexTo10(arrayList.get(30))+"%RH";
+        System.out.println(outEnvironment.pm25 + "---" + outEnvironment.pm10 + "--" + outEnvironment.temp + "--" + outEnvironment.tempIn);
 
 
 

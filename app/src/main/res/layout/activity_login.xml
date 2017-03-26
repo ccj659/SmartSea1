@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     >
-<include layout="@layout/view_tool_bar"></include>
+
+
+
 
     <TextView
         android:text="IP登录连接"
@@ -33,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="123.23.3.45"
+        android:text="192.168.2.198"
         android:id="@+id/et_ip"
         android:layout_alignBaseline="@+id/textView6"
         android:layout_alignBottom="@+id/textView6"

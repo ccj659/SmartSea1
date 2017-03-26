@@ -35,7 +35,9 @@ public class SocketService {
 
 
 
-    private void startThreadConected(final String address, final int port) {
+    public  void startThreadConected(final String address, final int port) {
+        Log.e("socket","startThreadConected host");
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -44,7 +46,7 @@ public class SocketService {
         }).start();
     }
 
-    public static void socketConect(String address,int port) {
+    public  void socketConect(String address,int port) {
         try {
             //socket=new Socket("192.168.2.211",5648);        //连接到tobacco5648.xicp.net的5648端口
 
@@ -100,7 +102,7 @@ public class SocketService {
             }
     }
 
-    public static void runSocket() {
+    public  void runSocket() {
         try {
             String str;
 

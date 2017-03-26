@@ -2,7 +2,10 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/small_container_padding"
+    android:layout_marginTop="@dimen/small_container_padding"
+    android:layout_marginLeft="@dimen/small_container_padding"
+    android:layout_marginRight="@dimen/small_container_padding"
+    android:layout_marginBottom="@dimen/small_container_padding"
     >
 <LinearLayout
     android:orientation="vertical"
@@ -10,13 +13,15 @@
     android:layout_height="wrap_content">
 
 
-
     <TextView
         android:text="鱼缸"
-        android:textSize="@dimen/large_text_size"
+        android:textSize="16sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_container_padding"
+        android:layout_marginTop="@dimen/small_container_padding"
+
+        android:layout_marginLeft="@dimen/common_container_padding"
+        android:layout_marginRight="@dimen/common_container_padding"
         android:id="@+id/tv_id" />
 
     <include layout="@layout/view_boder"></include>

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,13 @@ import com.ccj.smartsea.adapter.base.ItemClickListener;
 import com.ccj.smartsea.base.BaseFragment;
 import com.ccj.smartsea.bean.FishTank;
 import com.ccj.smartsea.event.MessageEvent;
+import com.ccj.smartsea.utils.EventUtils;
+import com.ccj.smartsea.utils.HexTo10Utils;
+import com.ccj.smartsea.utils.HexUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -57,15 +62,16 @@ public class FishTankFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+        if (HexTo10Utils.fishTanks != null) {
+            initData();
+        }
 
-        initData();
 
     }
 
     @Override
     public void initView() {
         super.initView();
-
 
 
         swipeLayout.setColorSchemeResources(R.color.colorAccent,
@@ -81,9 +87,10 @@ public class FishTankFragment extends BaseFragment {
             @Override
             public void onRefresh() {
 
-                initData();
+               // initData();
                 swipeLayout.setRefreshing(false);
-                constantAdapter.notifyDataSetChanged();
+
+                // /constantAdapter.notifyDataSetChanged();
             }
         });
 
@@ -91,6 +98,7 @@ public class FishTankFragment extends BaseFragment {
     }
 
     private void initData() {
+  /*
         mFishTanks = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
             FishTank resultBean = new FishTank();
@@ -99,8 +107,8 @@ public class FishTankFragment extends BaseFragment {
             resultBean.temp = "21";
             resultBean.turbidness = "45";
             mFishTanks.add(resultBean);
-        }
-        constantAdapter = new TestAdapter(mFishTanks, getActivity());
+        }*/
+        constantAdapter = new TestAdapter(HexTo10Utils.fishTanks, getActivity());
         recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
         recycleview.setAdapter(constantAdapter);
         constantAdapter.setOnItemClickListener(new ItemClickListener() {
@@ -117,6 +125,7 @@ public class FishTankFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -129,10 +138,24 @@ public class FishTankFragment extends BaseFragment {
         super.onStop();
     }
 
-    // This method will be called when a MessageEvent is posted
-    @Subscribe
-    public void onMessageEvent(MessageEvent event){
-        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+
+    /**
+     * 无论发布者在那个线程,在主线程中订阅
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventUtils.StringEvent event) {
+        Log.e(TAG, "onEventMainThread getObjectEvent" + HexTo10Utils.fishTanks.toString());
+
+        Log.e(TAG, "state" + HexTo10Utils.electSwitchBtn.state + "--" +
+                HexTo10Utils.lightSwitchBtn.state + "--" +
+                HexTo10Utils.filterSwitchBtn.state + "--" +
+                HexTo10Utils.foodSwitchBtn.state + "--"
+        );
+
+        initData();
     }
+
 
 }

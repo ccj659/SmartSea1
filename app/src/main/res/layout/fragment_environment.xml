@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
     android:orientation="vertical"
-    android:layout_margin="@dimen/common_container_padding"
 
     >
 
@@ -14,14 +13,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/common_container_padding"
+            android:paddingLeft="@dimen/common_container_padding"
+            android:paddingRight="@dimen/common_container_padding"
+            android:paddingTop="@dimen/common_container_padding"
             >
 
             <TextView
@@ -124,8 +122,8 @@
     android:orientation="horizontal"
     >
             <ImageView
-                android:layout_width="@dimen/image_size_80dp"
-                android:layout_height="@dimen/image_size_80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:srcCompat="@mipmap/smoke"
                 />
 
@@ -159,7 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="室内环境"
+            android:text="室外环境"
             android:textSize="@dimen/large_text_size"
 
             />

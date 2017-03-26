@@ -70,13 +70,13 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> 
             });
         }
         constantHolder.tvId.setText(tList.get(position).id);
-        constantHolder.tvTemp.setText("水温: "+tList.get(position).temp+" ℃");
+        constantHolder.tvTemp.setText("水温: "+tList.get(position).temp);
 
         constantHolder.tvId.setText(tList.get(position).id);
 
-        constantHolder.depth.setText("深度: "+tList.get(position).depth+"cm");
+        constantHolder.depth.setText("深度: "+tList.get(position).depth);
 
-        constantHolder.turbid.setText("浊度"+tList.get(position).turbidness+"%");
+        constantHolder.turbid.setText("浊度"+tList.get(position).turbidness);
 
     }
 

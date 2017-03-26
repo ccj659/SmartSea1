@@ -2,6 +2,7 @@ package com.ccj.smartsea.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,12 @@ import android.widget.Toast;
 import com.ccj.smartsea.R;
 import com.ccj.smartsea.base.BaseFragment;
 import com.ccj.smartsea.event.MessageEvent;
+import com.ccj.smartsea.utils.EventUtils;
+import com.ccj.smartsea.utils.HexTo10Utils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,8 +63,24 @@ public class EnvironmentFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+if (HexTo10Utils.outEnvironment!=null){
 
+    initdata();
+}
 
+    }
+
+    private void initdata() {
+        outTemp.setText(HexTo10Utils.inEnvironment.temp);
+        outHumidity.setText(HexTo10Utils.inEnvironment.tempIn);
+        outPm25.setText(HexTo10Utils.inEnvironment.pm25);
+        outPm10.setText(HexTo10Utils.inEnvironment.pm10);
+        outSmoke.setText(HexTo10Utils.inEnvironment.smoke);
+
+        inTemp.setText(HexTo10Utils.outEnvironment.temp);
+        inHumidity.setText(HexTo10Utils.outEnvironment.tempIn);
+        inPm25.setText(HexTo10Utils.outEnvironment.pm25);
+        inPm10.setText(HexTo10Utils.outEnvironment.pm10);
     }
 
     @Override
@@ -80,12 +100,23 @@ public class EnvironmentFragment extends BaseFragment {
         super.onStop();
     }
 
-    // This method will be called when a MessageEvent is posted
-    @Subscribe
-    public void onMessageEvent(MessageEvent event){
-        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
-    }
 
+
+    /**
+     * 无论发布者在那个线程,在主线程中订阅
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventUtils.StringEvent event) {
+
+        Log.e(TAG, "inEnvironment" + HexTo10Utils.inEnvironment.toString() + "--" +
+                HexTo10Utils.outEnvironment.toString() + "--"
+        );
+
+
+        initdata();
+    }
 
 
 

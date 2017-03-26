@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     FragmentTabHost mTabHost;
     TabHost.TabSpec tabSpec0;
     private TextView tv_count;
-    private Class fragmentArray[] = {FishTankFragment.class, EnvironmentFragment.class, ControlFragment.class, PersonFragment.class};
-    private String tabHostTagArray[] = {"鱼缸检测", "周围环境", "控制面板", "网络设置"};
-    private int mImageViewArray[] = {R.drawable.ic_contacts, R.drawable.ic_contacts,R.drawable.ic_contacts , R.drawable.ic_contacts};
+    private Class fragmentArray[] = {FishTankFragment.class, EnvironmentFragment.class, ControlFragment.class};
+    private String tabHostTagArray[] = {"鱼缸检测", "周围环境", "控制面板"};
+    private int mImageViewArray[] = {R.drawable.ic_contacts, R.drawable.ic_contacts,R.drawable.ic_contacts };
 
     private TabHost.OnTabChangeListener tabChangeListener;
     private String currentTab=tabHostTagArray[0];

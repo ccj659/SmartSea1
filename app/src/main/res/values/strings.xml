@@ -8,7 +8,7 @@
 
 
 
-    <string name="relOn" >吸合</string>
+    <string name="text_msg" >0X3A153221000000000000000000000000000000015601341821110000000000000000010123</string>
     <string name="relOff">断开</string>
 
     <string name="relAllOn" >吸合所有</string>
@@ -52,5 +52,6 @@
     <string name="lbtel">053155507297</string>
     <string name="lbmail">Email:tec@usr.cn</string>
     <string name="init_humi">R.string.init_temp</string>
+    <string name="relOn">试试</string>
 
 </resources>

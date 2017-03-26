@@ -28,4 +28,15 @@ public class FishTank implements Serializable {
 
 
     }
+
+    @Override
+    public String toString() {
+        return "FishTank{" +
+                "id='" + id + '\'' +
+                ", depth='" + depth + '\'' +
+                ", turbidness='" + turbidness + '\'' +
+                ", temp='" + temp + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

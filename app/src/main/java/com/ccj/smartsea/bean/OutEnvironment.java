@@ -13,7 +13,7 @@ public class OutEnvironment implements Serializable {
     public String temp; //温度
     public String pm25; //PM2.5
     public String pm10; //PM2.5
-    public String tempIn; //室温
+    public String tempIn; //湿度
     public String smoke; //浊度
 
     public OutEnvironment(String id, String name, String temp, String pm25, String smoke) {
@@ -28,5 +28,18 @@ public class OutEnvironment implements Serializable {
     public OutEnvironment() {
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "OutEnvironment{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", temp='" + temp + '\'' +
+                ", pm25='" + pm25 + '\'' +
+                ", pm10='" + pm10 + '\'' +
+                ", tempIn='" + tempIn + '\'' +
+                ", smoke='" + smoke + '\'' +
+                '}';
     }
 }
