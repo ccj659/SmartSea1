@@ -13,6 +13,7 @@ import com.ccj.smartsea.utils.EventUtils;
 import com.ccj.smartsea.utils.HexTo10Utils;
 import com.ccj.smartsea.utils.HexUtils;
 
+import org.apache.commons.codec.binary.Hex;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
@@ -22,6 +23,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by ccj on 2017/3/16.
@@ -32,7 +36,8 @@ public class SocketService {
     private static Socket socket;
     private static PrintWriter pw;
     private static BufferedReader br;
-
+    private static LinkedList<String> strings=new LinkedList<>();
+   static int index=0;
 
 
     public  void startThreadConected(final String address, final int port) {
@@ -104,21 +109,66 @@ public class SocketService {
 
     public  void runSocket() {
         try {
+            strings=new LinkedList<>();
+            int str1;
             String str;
+            index=0;
+            while((str1=br.read())!=-1) {
 
-            while((str=br.readLine())!=null){
-                final String s=str;
-                Log.e("socket","socket recivered mesg--->"+s);
+                Log.e("socket", "socket recivered str-"+index+"-->" + str1);
+                strings.add(str1+"");
+
+                if (index==37){
+                    Log.e("socket", "index==37-");
+                    Log.e("socket", "socket recivered removeFirst-"+index+"-->" + strings.toString());
+
+                    index=0;
+                    strings.removeFirst();
+                    strings.removeFirst();
+                    Log.e("socket", "socket recivered strings-"+index+"-->" + strings.toString());
+                    HexTo10Utils.getData(strings);
+                    EventBus.getDefault().post(new EventUtils.StringEvent(str1+""));
+
+                }else {
+                    Log.e("socket", "index<=37-");
+
+                    index++;
+
+                }
+                /*HexTo10Utils.getData(s);
+                EventBus.getDefault().post(new EventUtils.StringEvent(s));*/
+            }
+
+
+            /*while((str=br.readLine())!=null){
+                Log.e("socket","socket recivered str--->"+str);
+
+                final String s=str.trim();
+                Log.e("socket","socket recivered s--->"+s);
                 HexTo10Utils.getData(s);
                 EventBus.getDefault().post(new EventUtils.StringEvent(s));
 
-            }
+            }*/
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String byte2hex(byte[] b) {
+        String hs = "";
+        String stmp = "";
+        for (int n = 0; n < b.length; n++) {
+            stmp = (java.lang.Integer.toHexString(b[n] & 0XFF));
+            if (stmp.length() == 1) {
+                hs = hs + "0" + stmp;
+            } else {
+                hs = hs + stmp;
+            }
+        }
+        return hs.toUpperCase();
     }
 
 

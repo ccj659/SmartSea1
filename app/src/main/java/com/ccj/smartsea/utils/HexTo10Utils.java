@@ -8,6 +8,7 @@ import com.ccj.smartsea.bean.SwitchBtn;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by chenchangjun on 17/3/24.
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class HexTo10Utils {
 
 
-    public static ArrayList<String> arrayList;
+    public static LinkedList<String> arrayList;
     public static ArrayList<FishTank> fishTanks ;
     public static OutEnvironment inEnvironment;
     public static OutEnvironment outEnvironment;
@@ -26,20 +27,21 @@ public class HexTo10Utils {
     public static SwitchBtn foodSwitchBtn;
 
     public static int HexTo10(@NonNull String h) {
-        BigInteger srch = new BigInteger(h, 16);
+       // BigInteger srch = new BigInteger(h, 16);
 
-        return srch.intValue();
+       // return srch.intValue();
+        return Integer.parseInt(h);
     }
 
 
-    public static void getData(String strInput) {
+    public static void getData(LinkedList<String> strInput) {
 
        // String strInput = "1X3A153221111111111111111111111111111111115601341821111111111111111111010123";
-        arrayList = new ArrayList<>();
+        arrayList = strInput;
         fishTanks = new ArrayList<>();
 
 
-        for (int i = 4; i < strInput.length(); i++) {
+     /*   for (int i = 4; i < strInput.length(); i++) {
             if (i + 2 >= strInput.length() - 1) {
                 break;
             }
@@ -48,8 +50,10 @@ public class HexTo10Utils {
             System.out.println(str);
             i++;
 
-        }
+        }*/
 //String strInput = "0X3A153221000000000000000000000000000000015601341821110000000000000000010123";
+        System.out.println( "arrayList---" +arrayList.toString());
+
         int index=1;
         for (int i = 0; i < 18; i++) {
             FishTank fishTank = new FishTank();
@@ -114,13 +118,17 @@ public class HexTo10Utils {
     }
 
     public static Boolean getState(String state){
+        System.out.println(  "state---" + state);
 
-        if (state.equals("00")){
+        if (state.equals("0")){
             return false;
-        }else {
+        }else if (state.equals("1")) {
             return true;
 
+        }else {
+            return false;
         }
+
     }
 
 
