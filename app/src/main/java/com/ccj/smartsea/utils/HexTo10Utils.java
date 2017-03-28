@@ -17,7 +17,7 @@ import java.util.LinkedList;
 public class HexTo10Utils {
 
 
-    public static LinkedList<String> arrayList;
+    public static ArrayList<String> arrayList;
     public static ArrayList<FishTank> fishTanks ;
     public static OutEnvironment inEnvironment;
     public static OutEnvironment outEnvironment;
@@ -34,7 +34,7 @@ public class HexTo10Utils {
     }
 
 
-    public static void getData(LinkedList<String> strInput) {
+    public static void getData(ArrayList<String> strInput) {
 
        // String strInput = "1X3A153221111111111111111111111111111111115601341821111111111111111111010123";
         arrayList = strInput;

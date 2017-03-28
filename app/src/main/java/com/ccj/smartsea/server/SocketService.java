@@ -36,51 +36,49 @@ public class SocketService {
     private static Socket socket;
     private static PrintWriter pw;
     private static BufferedReader br;
-    private static LinkedList<String> strings=new LinkedList<>();
-   static int index=0;
+    private static ArrayList<String> strings = new ArrayList<>();
+    static int index = 0;
 
 
-    public  void startThreadConected(final String address, final int port) {
-        Log.e("socket","startThreadConected host");
+    public void startThreadConected(final String address, final int port) {
+        Log.e("socket", "startThreadConected host");
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                socketConect(address,port);
+                socketConect(address, port);
             }
         }).start();
     }
 
-    public  void socketConect(String address,int port) {
+    public void socketConect(String address, int port) {
         try {
             //socket=new Socket("192.168.2.211",5648);        //连接到tobacco5648.xicp.net的5648端口
 
-            socket=new Socket(address,port);        //连接到tobacco5648.xicp.net的5648端口
+            socket = new Socket(address, port);        //连接到tobacco5648.xicp.net的5648端口
 
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Log.e("socket","unknown host");
-            EventBus.getDefault().post(new EventUtils.ConnectedEvent("unknown host"+e.getMessage()));
+            Log.e("socket", "unknown host");
+            EventBus.getDefault().post(new EventUtils.ConnectedEvent("unknown host" + e.getMessage()));
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            Log.e("socket","io execption");
-            EventBus.getDefault().post(new EventUtils.ConnectedEvent("io execption"+e.getMessage()));
+            Log.e("socket", "io execption");
+            EventBus.getDefault().post(new EventUtils.ConnectedEvent("io execption" + e.getMessage()));
 
         }
-        if(socket==null){
-            Log.e("socket","null");
+        if (socket == null) {
+            Log.e("socket", "null");
             EventBus.getDefault().post(new EventUtils.ConnectedEvent("socket==null"));
 
-        }
-
-        else
+        } else
             try {
-                pw=new PrintWriter(socket.getOutputStream());
-                br=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                if(pw!=null&&br!=null){
-                    Log.e("socket","pw!=null&&br!=null");
+                pw = new PrintWriter(socket.getOutputStream());
+                br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                if (pw != null && br != null) {
+                    Log.e("socket", "pw!=null&&br!=null");
 
                     new Thread(new Runnable() {
                         @Override
@@ -90,13 +88,13 @@ public class SocketService {
                     }).start();
                 }
 
-                Log.e("socket","local:"+socket.getLocalAddress().getHostAddress()+",port"+ socket.getLocalPort());
+                Log.e("socket", "local:" + socket.getLocalAddress().getHostAddress() + ",port" + socket.getLocalPort());
 
-                Log.e("socket","accept:"+socket.getInetAddress().getHostAddress()+",port"+ socket.getPort());
-                Log.e("socket","socket connected success");
+                Log.e("socket", "accept:" + socket.getInetAddress().getHostAddress() + ",port" + socket.getPort());
+                Log.e("socket", "socket connected success");
 
-                String msg="local:"+socket.getLocalAddress().getHostAddress()+",port"+ socket.getLocalPort()+","+
-                        "accept:"+socket.getInetAddress().getHostAddress()+",port"+ socket.getPort()+","+
+                String msg = "local:" + socket.getLocalAddress().getHostAddress() + ",port" + socket.getLocalPort() + "," +
+                        "accept:" + socket.getInetAddress().getHostAddress() + ",port" + socket.getPort() + "," +
                         "socket connected success";
 
                 EventBus.getDefault().post(new EventUtils.ConnectedEvent(msg));
@@ -107,34 +105,40 @@ public class SocketService {
             }
     }
 
-    public  void runSocket() {
+    public void runSocket() {
         try {
-            strings=new LinkedList<>();
+            strings = new ArrayList<>();
+            LinkedList<String> buffer = new LinkedList<>();
             int str1;
-            String str;
-            index=0;
-            while((str1=br.read())!=-1) {
+            index = 0;
+            while ((str1 = br.read()) != -1) {
+                Log.e("socket", "socket recivered str-" + index + "-->" + str1);
 
-                Log.e("socket", "socket recivered str-"+index+"-->" + str1);
-                strings.add(str1+"");
-
-                if (index==37){
-                    Log.e("socket", "index==37-");
-                    Log.e("socket", "socket recivered removeFirst-"+index+"-->" + strings.toString());
-
-                    index=0;
-                    strings.removeFirst();
-                    strings.removeFirst();
-                    Log.e("socket", "socket recivered strings-"+index+"-->" + strings.toString());
+                if (index == 0) {
+                    ++index;
+                    continue;
+                }
+                Log.e("socket", "socket recivered str-" + index + "-->" + str1);
+                //strings.set(index-1.st)
+                strings.add(index,str1 + "");
+                strings.set(index,str1+"");
+                if (index >= 37) {
+                   // Log.e("socket", "index==37-");
+                    index = 0;
+                   // strings.clear();
+                   // strings.addAll(buffer);
+                    //buffer.clear();
+                    Log.e("socket", "socket recivered strings-" + index + "-->" + strings.toString());
                     HexTo10Utils.getData(strings);
-                    EventBus.getDefault().post(new EventUtils.StringEvent(str1+""));
-
-                }else {
-                    Log.e("socket", "index<=37-");
-
-                    index++;
+                    EventBus.getDefault().post(new EventUtils.StringEvent(str1 + ""));
 
                 }
+
+                index++;
+
+
+
+
                 /*HexTo10Utils.getData(s);
                 EventBus.getDefault().post(new EventUtils.StringEvent(s));*/
             }
@@ -206,9 +210,6 @@ public class SocketService {
         }
 
     }*/
-
-
-
 
 
 }
