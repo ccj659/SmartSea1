@@ -33,11 +33,13 @@ import java.util.List;
 
 public class SocketService {
 
-    private static Socket socket;
-    private static PrintWriter pw;
-    private static BufferedReader br;
-    private static ArrayList<String> strings = new ArrayList<>();
-    static int index = 0;
+    public static Socket socket;
+    public static PrintWriter pw;
+    public static BufferedReader br;
+    public static ArrayList<String> strings = new ArrayList<>();
+    public static int index = 0;
+    public boolean isNext;
+    public boolean isRun;
 
 
     public void startThreadConected(final String address, final int port) {
@@ -83,6 +85,7 @@ public class SocketService {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
+                           // isRun=true;
                             runSocket();
                         }
                     }).start();
@@ -111,32 +114,42 @@ public class SocketService {
             LinkedList<String> buffer = new LinkedList<>();
             int str1;
             index = 0;
+            int currentIndex=0;
             while ((str1 = br.read()) != -1) {
-                Log.e("socket", "socket recivered str-" + index + "-->" + str1);
 
                 if (index == 0) {
+                    currentIndex=0;
                     ++index;
                     continue;
                 }
-                Log.e("socket", "socket recivered str-" + index + "-->" + str1);
-                //strings.set(index-1.st)
-                strings.add(index,str1 + "");
-                strings.set(index,str1+"");
+                Log.e("socket", "socket recivered str-" + index + "-->" + str1+"--currentIndex--"+currentIndex);
+                strings.add(currentIndex,str1 + "");
+                /*//strings.set(index-1.st)
+                if(strings.isEmpty()||strings.get(currentIndex).isEmpty()){
+                    strings.add(currentIndex,str1 + "");
+
+                }else {
+                    strings.set(currentIndex,str1+"");
+
+                }*/
                 if (index >= 37) {
-                   // Log.e("socket", "index==37-");
+                    Log.e("socket", "index>=37");
+                    isNext=true;
                     index = 0;
-                   // strings.clear();
-                   // strings.addAll(buffer);
-                    //buffer.clear();
+                    ArrayList<String> stringsIndex =new ArrayList<>();
+                    for (int i = 1; i <strings.size() ; i++) {
+                        stringsIndex.add(new String(strings.get(i)));
+                    }
+
+                    strings.clear();
                     Log.e("socket", "socket recivered strings-" + index + "-->" + strings.toString());
-                    HexTo10Utils.getData(strings);
+                    HexTo10Utils.getData(stringsIndex);
                     EventBus.getDefault().post(new EventUtils.StringEvent(str1 + ""));
-
+                }else {
+                    index++;
+                    Log.e("socket", "index>37---->"+index);
+                    currentIndex++;
                 }
-
-                index++;
-
-
 
 
                 /*HexTo10Utils.getData(s);
@@ -176,40 +189,7 @@ public class SocketService {
     }
 
 
-    /*
-         *//*   @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.menu, menu);
-            return true;
-        }*//*
 
-    public void onClick(View view) {
-        if(view==button){
-            try {
-                if (socket.getKeepAlive()==false){
-                    startThreadConected();
-                    return;
-
-                }
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
-
-            String str;
-            str=editText.getText().toString();
-            // str="-----------mesgss------";
-            if (pw==null){
-                Toast.makeText(TestActivity.this, "请进行重启app,进行socket连接", Toast.LENGTH_SHORT).show();
-
-                return;
-            }
-            pw.println(str);
-            pw.flush();
-            Log.e("socket","socket send mesg to pc--->"+str);
-
-        }
-
-    }*/
 
 
 }

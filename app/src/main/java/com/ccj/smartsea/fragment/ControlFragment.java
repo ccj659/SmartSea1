@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.ccj.smartsea.R;
+import com.ccj.smartsea.TestActivity;
 import com.ccj.smartsea.base.BaseFragment;
+import com.ccj.smartsea.server.SocketService;
 import com.ccj.smartsea.utils.EventUtils;
 import com.ccj.smartsea.utils.HexTo10Utils;
 import com.ccj.smartsea.utils.TLog;
@@ -20,6 +23,8 @@ import com.ccj.smartsea.utils.TLog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.net.SocketException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -225,12 +230,6 @@ public class ControlFragment extends BaseFragment  {
         setState(tbFilter,HexTo10Utils.filterSwitchBtn.state);
 
         setState(tbFood,HexTo10Utils.foodSwitchBtn.state);
-        tbElect.setClickable(false);
-        tbLight.setClickable(false);
-
-        tbFilter.setClickable(false);
-
-        tbFood.setClickable(false);
     }
 
 
@@ -285,5 +284,35 @@ public class ControlFragment extends BaseFragment  {
         }
 
     }
+
+
+
+    public void onClick(View view) {
+        /*if(view==button){
+            try {
+                if (SocketService.socket.getKeepAlive()==false){
+                    SocketService.startThreadConected();
+                    return;
+
+                }
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
+
+            String str="";
+            // str="-----------mesgss------";
+            if (SocketService.pw==null){
+                Toast.makeText(getActivity(), "请进行重启app,进行socket连接", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            SocketService.pw.println(str);
+            SocketService.pw.flush();
+            Log.e("socket","socket send mesg to pc--->"+str);
+
+        }*/
+
+    }
+
+
 
 }

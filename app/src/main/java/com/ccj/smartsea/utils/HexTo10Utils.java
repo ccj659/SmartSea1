@@ -35,7 +35,7 @@ public class HexTo10Utils {
 
 
     public static void getData(ArrayList<String> strInput) {
-
+       // 50 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 86 1 52 24 33 17 0 0 0 0 0 0 0 0 1 1 35
        // String strInput = "1X3A153221111111111111111111111111111111115601341821111111111111111111010123";
         arrayList = strInput;
         fishTanks = new ArrayList<>();
