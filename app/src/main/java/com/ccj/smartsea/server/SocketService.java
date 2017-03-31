@@ -142,12 +142,12 @@ public class SocketService {
                     }
 
                     strings.clear();
-                    Log.e("socket", "socket recivered strings-" + index + "-->" + strings.toString());
+                    Log.e("socket", "socket ArrayList strings--->" + stringsIndex.toString());
                     HexTo10Utils.getData(stringsIndex);
                     EventBus.getDefault().post(new EventUtils.StringEvent(str1 + ""));
                 }else {
                     index++;
-                    Log.e("socket", "index>37---->"+index);
+                    Log.e("socket", "index<37---->"+index);
                     currentIndex++;
                 }
 
