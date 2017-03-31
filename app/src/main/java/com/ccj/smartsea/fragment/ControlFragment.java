@@ -24,15 +24,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static com.ccj.smartsea.server.SocketService.socket;
+
 /**
  * Created by ccj on 2017/3/15.
  */
-public class ControlFragment extends BaseFragment  {
+public class ControlFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
 
     @Bind(R.id.tb_elect)
@@ -45,6 +50,8 @@ public class ControlFragment extends BaseFragment  {
     CheckBox tbFood;
     private View view;
     private static final String TAG = ControlFragment.class.getSimpleName();
+    private String str;
+    private byte[] cmd;
 
     @Nullable
     @Override
@@ -62,14 +69,14 @@ public class ControlFragment extends BaseFragment  {
         super.onViewCreated(view, savedInstanceState);
 
 
-        if ( HexTo10Utils.lightSwitchBtn!=null){
+        if (HexTo10Utils.lightSwitchBtn != null) {
             initdata();
         }
- /*       tbElect.setOnCheckedChangeListener(this);//添加监听事件
+        tbElect.setOnCheckedChangeListener(this);//添加监听事件
 
         tbLight.setOnCheckedChangeListener(this);//添加监听事件
         tbFilter.setOnCheckedChangeListener(this);//添加监听事件
-        tbFood.setOnCheckedChangeListener(this);*/
+        tbFood.setOnCheckedChangeListener(this);
 
       /*  tbElect.setTextKeepState("电磁阀开关");
         tbElect.setTextOn("电磁阀已开启");
@@ -125,7 +132,7 @@ public class ControlFragment extends BaseFragment  {
         }
     }*/
 
-   /* @Override
+    @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
         CheckBox toggleButton = (CheckBox) compoundButton;
@@ -142,40 +149,56 @@ public class ControlFragment extends BaseFragment  {
             case R.id.tb_elect:
 
                 if (b) {
-                compoundButton.setText("电磁阀已开启");
-            } else {
-                compoundButton.setText("电磁阀已关闭");
-            }
+                    compoundButton.setText("电磁阀已开启");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFA};
+                } else {
+                    compoundButton.setText("电磁阀已关闭");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xFA};
+
+                }
 
                 break;
             case R.id.tb_light:
 
                 if (b) {
                     compoundButton.setText("景观灯已开启");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xAF};
+
                 } else {
                     compoundButton.setText("景观灯已关闭");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xAF};
+
+
                 }
 
                 break;
             case R.id.tb_filter:
                 if (b) {
                     compoundButton.setText("过滤器已开启");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFB};
+
                 } else {
                     compoundButton.setText("过滤器已关闭");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xFB};
+
                 }
 
                 break;
             case R.id.tb_food:
                 if (b) {
                     compoundButton.setText("投食器已开启");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xBF};
+
                 } else {
                     compoundButton.setText("投食器已关闭");
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xBF};
                 }
 
                 break;
         }
+        onClickSend(cmd);
 
-    }*/
+    }
 
     @Override
     public void onStart() {
@@ -199,10 +222,10 @@ public class ControlFragment extends BaseFragment  {
     public void onMessageEvent(EventUtils.StringEvent event) {
         Log.e(TAG, "onEventMainThread getObjectEvent" + event.getMsg());
 
-        Log.e(TAG, "state" + HexTo10Utils.electSwitchBtn.state+"--"+
-                HexTo10Utils.lightSwitchBtn.state+"--"+
-                HexTo10Utils.filterSwitchBtn.state+"--"+
-                HexTo10Utils.foodSwitchBtn.state+"--"
+        Log.e(TAG, "state" + HexTo10Utils.electSwitchBtn.state + "--" +
+                HexTo10Utils.lightSwitchBtn.state + "--" +
+                HexTo10Utils.filterSwitchBtn.state + "--" +
+                HexTo10Utils.foodSwitchBtn.state + "--"
         );
 
      /*   tbElect.setChecked(HexTo10Utils.electSwitchBtn.state);
@@ -225,15 +248,15 @@ public class ControlFragment extends BaseFragment  {
 
 
         setState(tbElect, HexTo10Utils.electSwitchBtn.state);
-        setState(tbLight,HexTo10Utils.lightSwitchBtn.state);
+        setState(tbLight, HexTo10Utils.lightSwitchBtn.state);
 
-        setState(tbFilter,HexTo10Utils.filterSwitchBtn.state);
+        setState(tbFilter, HexTo10Utils.filterSwitchBtn.state);
 
-        setState(tbFood,HexTo10Utils.foodSwitchBtn.state);
+        setState(tbFood, HexTo10Utils.foodSwitchBtn.state);
     }
 
 
-    public void setState(CompoundButton compoundButton, boolean b){
+    public void setState(CompoundButton compoundButton, boolean b) {
 
 
         if (b) {
@@ -242,15 +265,14 @@ public class ControlFragment extends BaseFragment  {
         } else {
             compoundButton.setTextColor(Color.GRAY);
             compoundButton.setChecked(b);
-
         }
-
 
         switch (compoundButton.getId()) {
             case R.id.tb_elect:
 
                 if (b) {
                     compoundButton.setText("电磁阀已开启");
+
                 } else {
                     compoundButton.setText("电磁阀已关闭");
                 }
@@ -286,33 +308,60 @@ public class ControlFragment extends BaseFragment  {
     }
 
 
+    //00000001FA
+    public void onClickSend(byte[] cmd) {
 
-    public void onClick(View view) {
-        /*if(view==button){
-            try {
-                if (SocketService.socket.getKeepAlive()==false){
-                    SocketService.startThreadConected();
-                    return;
 
-                }
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
+        byte[] b = new byte[5];
+        b[0] = (byte) 0x00;
+        b[1] = (byte) 0x00;
+        b[2] = (byte) 0x00;
+        b[3] = (byte) 0x00;
+        b[4] = (byte) 0xAF;
 
-            String str="";
-            // str="-----------mesgss------";
-            if (SocketService.pw==null){
-                Toast.makeText(getActivity(), "请进行重启app,进行socket连接", Toast.LENGTH_SHORT).show();
+
+        //   int[] cmd1=new int[]{00,00,00,01,175};
+
+
+        try {
+            if (socket == null) {
+                // SocketService.startThreadConected();
+                Log.e("socket", "socket is null--->");
                 return;
             }
-            SocketService.pw.println(str);
-            SocketService.pw.flush();
-            Log.e("socket","socket send mesg to pc--->"+str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        }*/
+        if (SocketService.pw == null) {
+            Toast.makeText(getActivity(), "请进行重启app,进行socket连接", Toast.LENGTH_SHORT).show();
+            return;
+        }
+ /*       SocketService.pw.write(cmd1[0]);
+        SocketService.pw.write(cmd1[1]);
+        SocketService.pw.write(cmd1[2]);
+        SocketService.pw.write(cmd1[3]);
+        SocketService.pw.write(cmd1[4]);
+        */
 
+
+//        SocketService.pw.write(cmd[0]);
+//        SocketService.pw.write(cmd[1]);
+//        SocketService.pw.write(cmd[2]);
+//        SocketService.pw.write(cmd[3]);
+//        SocketService.pw.write(cmd[4]);
+        //SocketService.pw.println(b);
+        OutputStream out = null;
+        try {
+            out = socket.getOutputStream();
+            if (out == null) return;
+            out.write(cmd);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // SocketService.pw.flush();
+        Log.e("socket", "socket send mesg to pc--->" + cmd);
     }
-
 
 
 }
