@@ -41,16 +41,6 @@ public class HexTo10Utils {
         fishTanks = new ArrayList<>();
 
 
-     /*   for (int i = 4; i < strInput.length(); i++) {
-            if (i + 2 >= strInput.length() - 1) {
-                break;
-            }
-            String str = strInput.substring(i, i + 2);
-            arrayList.add(str);
-            System.out.println(str);
-            i++;
-
-        }*/
 //String strInput = "0X3A153221000000000000000000000000000000015601341821110000000000000000010123";
         System.out.println( "arrayList---" +arrayList.toString());
 
