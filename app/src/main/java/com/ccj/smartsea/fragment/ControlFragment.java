@@ -153,7 +153,7 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
                     cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFA};
                 } else {
                     compoundButton.setText("电磁阀已关闭");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xFA};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xAF};
 
                 }
 
@@ -162,11 +162,11 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
 
                 if (b) {
                     compoundButton.setText("景观灯已开启");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xAF};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFB};
 
                 } else {
                     compoundButton.setText("景观灯已关闭");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xAF};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xBF};
 
 
                 }
@@ -175,11 +175,11 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
             case R.id.tb_filter:
                 if (b) {
                     compoundButton.setText("过滤器已开启");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFB};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFC};
 
                 } else {
                     compoundButton.setText("过滤器已关闭");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xFB};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xCF};
 
                 }
 
@@ -187,11 +187,11 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
             case R.id.tb_food:
                 if (b) {
                     compoundButton.setText("投食器已开启");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xBF};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xFD};
 
                 } else {
                     compoundButton.setText("投食器已关闭");
-                    cmd = new byte[]{0x00, 0x00, 0x00, 0x00, (byte) 0xBF};
+                    cmd = new byte[]{0x00, 0x00, 0x00, 0x01, (byte) 0xDF};
                 }
 
                 break;
@@ -261,10 +261,10 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
 
         if (b) {
             compoundButton.setTextColor(Color.BLUE);
-            compoundButton.setChecked(b);
+            //compoundButton.setChecked(b);
         } else {
             compoundButton.setTextColor(Color.GRAY);
-            compoundButton.setChecked(b);
+            //compoundButton.setChecked(b);
         }
 
         switch (compoundButton.getId()) {
@@ -272,7 +272,6 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
 
                 if (b) {
                     compoundButton.setText("电磁阀已开启");
-
                 } else {
                     compoundButton.setText("电磁阀已关闭");
                 }
@@ -312,12 +311,12 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
     public void onClickSend(byte[] cmd) {
 
 
-        byte[] b = new byte[5];
+    /*    byte[] b = new byte[5];
         b[0] = (byte) 0x00;
         b[1] = (byte) 0x00;
         b[2] = (byte) 0x00;
         b[3] = (byte) 0x00;
-        b[4] = (byte) 0xAF;
+        b[4] = (byte) 0xAF;*/
 
 
         //   int[] cmd1=new int[]{00,00,00,01,175};
