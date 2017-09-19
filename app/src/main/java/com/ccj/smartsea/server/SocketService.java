@@ -43,9 +43,10 @@ public class SocketService {
     public static int index = 0;
     public boolean isNext;
     public boolean isRun;
-    private boolean isClient;
+    private static boolean isClient;
     private InputStream in;
     private String str;
+    private boolean isNull;
 
 
     public void startThreadConected(final String address, final int port) {
@@ -122,7 +123,6 @@ public class SocketService {
 
     public void runSocket() {
             strings = new ArrayList<>();
-            LinkedList<String> buffer = new LinkedList<>();
             int str1;
             index = 0;
             int currentIndex = 0;
@@ -131,7 +131,7 @@ public class SocketService {
             while (isClient) {
 
                 try {
-                    strings = new ArrayList<>();
+                    strings.clear();
                     in = socket.getInputStream();
                     Log.e("aaa", in.toString());
                     byte[] bt = new byte[37];
@@ -141,7 +141,17 @@ public class SocketService {
                     for (int i = 1; i <bt.length ; i++) {
                         Log.e("socket", "socket recivered str-" + i + "-->"+"--currentIndex--"+bt[i]);
                         strings.add(currentIndex,bt[i] + "");
+                        if ((bt[i]+"").equals("0")){
+                            isNull=true;
+                        }else {
+                            isNull=false;
+                        }
                     }
+                    if (isNull){
+                        System.out.println( "数据为空");
+                        return;
+                    }
+
                     Collections.reverse(strings);
                     Log.e("socket", "socket strings str-"+strings.toString());
 

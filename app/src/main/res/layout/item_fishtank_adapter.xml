@@ -15,7 +15,7 @@
 
     <TextView
         android:text="鱼缸"
-        android:textSize="16sp"
+        android:textSize="@dimen/large_text_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_container_padding"
@@ -33,6 +33,8 @@
         android:orientation="horizontal"
         >
         <TextView
+            android:textSize="@dimen/common_text_size"
+
             android:layout_weight="1"
             android:drawableLeft="@mipmap/temp_1"
             android:text="水温"
@@ -41,6 +43,8 @@
             android:id="@+id/tv_temp" />
 
         <TextView
+            android:textSize="@dimen/common_text_size"
+
             android:layout_weight="1"
             android:drawableLeft="@mipmap/depth_1"
 
@@ -49,6 +53,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/depth" />
         <TextView
+            android:textSize="@dimen/common_text_size"
+
             android:layout_weight="1"
             android:drawableLeft="@mipmap/see1"
 

@@ -1,6 +1,7 @@
 package com.ccj.smartsea.fragment;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -52,6 +53,7 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
     private static final String TAG = ControlFragment.class.getSimpleName();
     private String str;
     private byte[] cmd;
+    private MyTask sendTask;
 
     @Nullable
     @Override
@@ -77,6 +79,9 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
         tbLight.setOnCheckedChangeListener(this);//添加监听事件
         tbFilter.setOnCheckedChangeListener(this);//添加监听事件
         tbFood.setOnCheckedChangeListener(this);
+
+
+         sendTask=new MyTask();
 
       /*  tbElect.setTextKeepState("电磁阀开关");
         tbElect.setTextOn("电磁阀已开启");
@@ -196,8 +201,9 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
 
                 break;
         }
-        onClickSend(cmd);
-
+       // onClickSend(cmd);
+        sendTask=new MyTask();
+        sendTask.execute(cmd);
     }
 
     @Override
@@ -360,7 +366,24 @@ public class ControlFragment extends BaseFragment implements CompoundButton.OnCh
         }
         // SocketService.pw.flush();
         Log.e("socket", "socket send mesg to pc--->" + cmd);
+
+
+
     }
 
 
+
+    class  MyTask extends AsyncTask<byte[],byte[],String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(byte[]... bytes) {
+            onClickSend(bytes[0]);
+            return null;
+        }
+    }
 }
