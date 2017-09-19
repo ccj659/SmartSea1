@@ -33,7 +33,11 @@ public class HexTo10Utils {
         return Integer.parseInt(h);
     }
 
-
+    public static Double intToDouble(@NonNull int h) {
+        double turbidness=h/10;
+        new java.text.DecimalFormat("#.00").format(turbidness);
+        return turbidness;
+    }
     public static void getData(ArrayList<String> strInput) {
        // 50 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 86 1 52 24 33 17 0 0 0 0 0 0 0 0 1 1 35
        // String strInput = "1X3A153221111111111111111111111111111111115601341821111111111111111111010123";
@@ -50,7 +54,7 @@ public class HexTo10Utils {
             fishTank.id = index + "号鱼缸";
             fishTank.temp = HexTo10(arrayList.get(i))+"℃";
             fishTank.depth = HexTo10(arrayList.get(i + 1))+"cm";
-            fishTank.turbidness =HexTo10( arrayList.get(i + 2))/10+"";
+            fishTank.turbidness =intToDouble(HexTo10( arrayList.get(i + 2)))+"";
             fishTanks.add(fishTank);
             i += 2;
             index++;
@@ -62,8 +66,8 @@ public class HexTo10Utils {
 
         inEnvironment = new OutEnvironment();
         inEnvironment.id = 1 + "";
-        inEnvironment.pm25 = (HexTo10(arrayList.get(18))*256 + HexTo10(arrayList.get(19))/10)+"ug/m³";
-        inEnvironment.pm10 = (HexTo10(arrayList.get(20))*256 + HexTo10(arrayList.get(21))/10)+"ug/m³";
+        inEnvironment.pm25 = (HexTo10(arrayList.get(18))*256 + HexTo10(arrayList.get(19))/10)/10+"ug/m³";
+        inEnvironment.pm10 = (HexTo10(arrayList.get(20))*256 + HexTo10(arrayList.get(21))/10)/10+"ug/m³";
         inEnvironment.temp =  HexTo10(arrayList.get(22))+"℃";
         inEnvironment.tempIn =  HexTo10(arrayList.get(23))+"%RH";
         inEnvironment.smoke =  HexTo10(arrayList.get(24))+"";
@@ -73,8 +77,8 @@ public class HexTo10Utils {
         outEnvironment = new OutEnvironment();
         outEnvironment.id = 1 + "";
 
-        outEnvironment.pm25 = (HexTo10(arrayList.get(25))*256 + HexTo10(arrayList.get(26))/10)+"ug/m³";
-        outEnvironment.pm10 = (HexTo10(arrayList.get(27))*256 + HexTo10(arrayList.get(28))/10)+"ug/m³";
+        outEnvironment.pm25 = (HexTo10(arrayList.get(25))*256 + HexTo10(arrayList.get(26))/10)/10+"ug/m³";
+        outEnvironment.pm10 = (HexTo10(arrayList.get(27))*256 + HexTo10(arrayList.get(28))/10)/10+"ug/m³";
 
 
         outEnvironment.temp = HexTo10(arrayList.get(29))+"℃";

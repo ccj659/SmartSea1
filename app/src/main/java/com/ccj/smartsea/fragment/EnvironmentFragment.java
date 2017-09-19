@@ -63,10 +63,10 @@ public class EnvironmentFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-if (HexTo10Utils.outEnvironment!=null){
-
-    initdata();
-}
+        outSmoke.setVisibility(View.GONE);
+        if (HexTo10Utils.outEnvironment != null) {
+            initdata();
+        }
 
     }
 
@@ -75,7 +75,7 @@ if (HexTo10Utils.outEnvironment!=null){
         outHumidity.setText(HexTo10Utils.inEnvironment.tempIn);
         outPm25.setText(HexTo10Utils.inEnvironment.pm25);
         outPm10.setText(HexTo10Utils.inEnvironment.pm10);
-        outSmoke.setText(HexTo10Utils.inEnvironment.smoke);
+        outSmoke.setText(HexTo10Utils.inEnvironment.smoke + "");
 
         inTemp.setText(HexTo10Utils.outEnvironment.temp);
         inHumidity.setText(HexTo10Utils.outEnvironment.tempIn);
@@ -88,6 +88,7 @@ if (HexTo10Utils.outEnvironment!=null){
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -99,7 +100,6 @@ if (HexTo10Utils.outEnvironment!=null){
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
-
 
 
     /**
@@ -117,7 +117,6 @@ if (HexTo10Utils.outEnvironment!=null){
 
         initdata();
     }
-
 
 
 }
